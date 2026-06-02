@@ -1,0 +1,97 @@
+from machine import Pin
+from time import sleep
+
+# LEDs
+green = Pin(4, Pin.OUT)
+yellow = Pin(5, Pin.OUT)
+red = Pin(2, Pin.OUT)
+
+# Push Button (GPIO15 -> Button -> GND)
+button = Pin(15, Pin.IN, Pin.PULL_UP)
+
+# Startup: all LEDs OFF
+green.off()
+yellow.off()
+red.off()
+
+cycle_count = 0
+
+
+def all_off():
+    green.off()
+    yellow.off()
+    red.off()
+
+
+def emergency_mode():
+    print("EMERGENCY")
+
+    all_off()
+    green.on()
+
+    # Emergency Green for 5 seconds
+    for _ in range(5):
+        sleep(1)
+
+    green.off()
+
+    # Bonus: Intersection clear
+    red.on()
+    print("RED (Intersection Clear)")
+    sleep(2)
+    red.off()
+
+
+while True:
+
+    # Emergency button pressed?
+    if button.value() == 0:
+        emergency_mode()
+        continue
+
+    # Bonus: ALL OFF before GREEN
+    all_off()
+    print("ALL OFF")
+    sleep(1)
+
+    # GREEN - 5s
+    print("GREEN")
+    green.on()
+
+    for _ in range(5):
+        if button.value() == 0:
+            green.off()
+            emergency_mode()
+            break
+        sleep(1)
+    else:
+        green.off()
+
+        # YELLOW - 2s
+        print("YELLOW")
+        yellow.on()
+
+        for _ in range(2):
+            if button.value() == 0:
+                yellow.off()
+                emergency_mode()
+                break
+            sleep(1)
+        else:
+            yellow.off()
+
+            # RED - 5s
+            print("RED")
+            red.on()
+
+            for _ in range(5):
+                if button.value() == 0:
+                    red.off()
+                    emergency_mode()
+                    break
+                sleep(1)
+            else:
+                red.off()
+
+                cycle_count += 1
+                print("Cycles Completed:", cycle_count)

@@ -1,0 +1,79 @@
+# BUG 01 
+
+# vehicle_count = 15
+# green_time = 10 + vehiclecount * 2 
+# print('Green time:', green_time)
+
+# FIX 
+
+# vehicle_count = 15 
+# green_time = 10 + vehicle_count * 2 
+# print('Green time:', green_time)
+
+# BUG 02 
+
+# signal_state = 'GREEN' 
+# if signal_state = 'GREEN':    
+#     print('Gaadiyaan chal sakti hain!') 
+# else:    
+#     print('Ruko!')
+
+FIX 
+
+# signal_state = 'GREEN' 
+# if signal_state == 'GREEN':    
+#     print('Gaadiyaan chal sakti hain!') 
+# else:    
+#     print('Ruko!')
+
+# BUG 03 
+
+# lanes = ['North', 'South', 'East', 'West'] 
+# for lane in lanes
+#   print('Lane:', lane)
+
+# FIX 
+
+#   lanes = ['North', 'South', 'East', 'West']
+# for lane in lanes:
+#     print('Lane:', lanes)
+
+# BUG 04
+
+# import cv2 
+
+# img = cv2.imread('traffic.jpg') 
+# cv2.imshow('Traffic', img) 
+# cv2.destroyAllWindows()
+
+# FIX 
+
+# import cv2
+
+# img = cv2.imread('traffic.jpg')
+# cv2.imshow('Traffic', img)
+# cv2.waitKey(0) 
+# cv2.destroyAllWindows()
+
+# BUG 05
+
+# from ultralytics import YOLO 
+# import cv2 
+# model = YOLO('yolov8n.pt') 
+# img   = cv2.imread('traffic.jpg') 
+# results = model(img)
+
+# FIX 
+
+# from ultralytics import YOLO
+# import cv2
+
+# model = YOLO('yolov8n.pt')
+# img = cv2.imread('traffic.jpg')
+
+# results = model(img)
+
+# for box in results[0].boxes:
+#     class_id = int(box.cls[0])
+#     print(model.names[class_id])
+
